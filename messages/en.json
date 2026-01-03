@@ -1,0 +1,110 @@
+{
+    "nav": {
+        "home": "Home",
+        "about": "About Us",
+        "services": "Services",
+        "projects": "Projects",
+        "blog": "Blog",
+        "catalog": "Catalog",
+        "contact": "Contact",
+        "getQuote": "Get Quote",
+        "faq": "FAQ"
+    },
+    "hero": {
+        "title": "Building Your Dream Structures",
+        "subtitle": "With over 25 years of experience, we build modern, safe, and aesthetic structures.",
+        "cta": "View Our Projects",
+        "contact": "Contact Us"
+    },
+    "stats": {
+        "experience": "Years Experience",
+        "projects": "Completed Projects",
+        "clients": "Happy Clients",
+        "satisfaction": "Satisfaction"
+    },
+    "services": {
+        "title": "Comprehensive Construction Solutions",
+        "subtitle": "Professional and reliable service for all your construction needs",
+        "residential": {
+            "title": "Residential Projects",
+            "desc": "We deliver modern and safe residential projects on a turnkey basis."
+        },
+        "commercial": {
+            "title": "Commercial Buildings",
+            "desc": "Functional designs for office buildings, shopping centers, and industrial structures."
+        },
+        "renovation": {
+            "title": "Renovation & Remodeling",
+            "desc": "Services for renewing and modernizing your existing structures."
+        },
+        "consulting": {
+            "title": "Project Consulting",
+            "desc": "Professional consulting and project management for your construction projects."
+        },
+        "learnMore": "Learn More"
+    },
+    "whyUs": {
+        "title": "Why Choose Aslan Construction?",
+        "subtitle": "Features that make us stand out in the industry",
+        "fast": {
+            "title": "Fast & Efficient",
+            "desc": "Our commitment to deliver your projects on time, or even early"
+        },
+        "quality": {
+            "title": "Safe & Quality",
+            "desc": "High quality standards and 2-year structural warranty"
+        },
+        "support": {
+            "title": "24/7 Support",
+            "desc": "Uninterrupted technical support during and after the project"
+        }
+    },
+    "projects": {
+        "title": "Our Projects",
+        "subtitle": "Our completed and ongoing success stories",
+        "viewAll": "View All Projects",
+        "completed": "Completed",
+        "ongoing": "Ongoing",
+        "all": "All"
+    },
+    "testimonials": {
+        "title": "What Our Clients Say",
+        "subtitle": "Customer satisfaction and trust in our completed projects"
+    },
+    "cta": {
+        "title": "Let's Bring Your Project to Life",
+        "subtitle": "Let's plan your dream building together. Contact us for free consultation.",
+        "contact": "Contact Us",
+        "catalog": "View Our Catalog"
+    },
+    "footer": {
+        "description": "With over 25 years of experience, we build the living spaces of your dreams.",
+        "quickLinks": "Quick Links",
+        "contact": "Contact",
+        "address": "Address",
+        "phone": "Phone",
+        "email": "Email",
+        "rights": "All rights reserved.",
+        "privacy": "Privacy Policy",
+        "terms": "Terms of Service"
+    },
+    "quote": {
+        "title": "Get a Free Quote",
+        "subtitle": "Tell us about your project, and we'll prepare a custom quote for you.",
+        "step1": "Select Project Type",
+        "step2": "Project Details",
+        "step3": "Timeline & Location",
+        "step4": "Contact Information",
+        "next": "Next",
+        "back": "Back",
+        "submit": "Request Quote",
+        "success": "Request Received!"
+    },
+    "faq": {
+        "title": "Frequently Asked Questions",
+        "subtitle": "Answers to all your questions about construction processes",
+        "search": "Search questions...",
+        "noAnswer": "Couldn't find your answer?",
+        "contactUs": "Contact us directly"
+    }
+}

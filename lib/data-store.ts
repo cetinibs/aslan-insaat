@@ -1,0 +1,280 @@
+// Veri deposu - localStorage tabanlı (production'da veritabanı kullanılmalı)
+
+export interface Service {
+    id: string
+    title: string
+    titleEn: string
+    description: string
+    descriptionEn: string
+    icon: string
+    features: string[]
+    featuresEn: string[]
+}
+
+export interface Project {
+    id: string
+    title: string
+    category: "konut" | "ticari"
+    status: "completed" | "ongoing"
+    year: string
+    location: string
+    area: string
+    units: string
+    description: string
+    descriptionEn: string
+    features: string[]
+    featuresEn: string[]
+    images: string[]
+    progress?: number
+}
+
+export interface BlogPost {
+    id: string
+    title: string
+    titleEn: string
+    excerpt: string
+    excerptEn: string
+    content: string
+    contentEn: string
+    author: string
+    date: string
+    category: string
+    categoryEn: string
+    featuredImage?: string
+}
+
+// Varsayılan hizmetler
+const defaultServices: Service[] = [
+    {
+        id: "1",
+        title: "Konut Projeleri",
+        titleEn: "Residential Projects",
+        description: "Villa, apartman ve rezidans projelerinde uzman çözümler",
+        descriptionEn: "Expert solutions for villa, apartment and residence projects",
+        icon: "Home",
+        features: ["Anahtar teslim", "Depreme dayanıklı", "Modern tasarım"],
+        featuresEn: ["Turnkey", "Earthquake resistant", "Modern design"]
+    },
+    {
+        id: "2",
+        title: "Ticari Binalar",
+        titleEn: "Commercial Buildings",
+        description: "Ofis, plaza ve iş merkezi projeleri",
+        descriptionEn: "Office, plaza and business center projects",
+        icon: "Building2",
+        features: ["A+ standartları", "Akıllı bina sistemleri", "Enerji verimliliği"],
+        featuresEn: ["A+ standards", "Smart building systems", "Energy efficiency"]
+    },
+    {
+        id: "3",
+        title: "Tadilat & Renovasyon",
+        titleEn: "Renovation & Remodeling",
+        description: "Mevcut yapıların modernizasyonu ve yenilenmesi",
+        descriptionEn: "Modernization and renovation of existing structures",
+        icon: "Wrench",
+        features: ["Hızlı teslim", "Minimum kesinti", "Maliyet optimizasyonu"],
+        featuresEn: ["Fast delivery", "Minimum interruption", "Cost optimization"]
+    },
+    {
+        id: "4",
+        title: "Proje Danışmanlığı",
+        titleEn: "Project Consulting",
+        description: "İnşaat projeleriniz için profesyonel danışmanlık hizmeti",
+        descriptionEn: "Professional consulting service for your construction projects",
+        icon: "FileCheck",
+        features: ["Fizibilite analizi", "Maliyet tahmini", "Süreç yönetimi"],
+        featuresEn: ["Feasibility analysis", "Cost estimation", "Process management"]
+    }
+]
+
+// Varsayılan projeler
+const defaultProjects: Project[] = [
+    {
+        id: "1",
+        title: "ERSA ORMAN EVLERİ",
+        category: "konut",
+        status: "completed",
+        year: "2018",
+        location: "Sultanbeyli, İstanbul",
+        area: "15,000 m²",
+        units: "24 villa",
+        description: "Sultanbeyli ERSA ORMAN EVLERİ - Modern konut projesi",
+        descriptionEn: "Sultanbeyli ERSA FOREST HOMES - Modern residential project",
+        features: ["Depreme dayanıklı", "Özel bahçeli", "24 saat güvenlik"],
+        featuresEn: ["Earthquake resistant", "Private garden", "24/7 security"],
+        images: ["/ersa.jpeg"],
+        progress: 100
+    },
+    {
+        id: "5",
+        title: "KUMBAŞI PROJESİ",
+        category: "konut",
+        status: "ongoing",
+        year: "2025",
+        location: "İstanbul",
+        area: "8,500 m²",
+        units: "36 daire",
+        description: "Kumbaşı Projesi - Yeni nesil konut",
+        descriptionEn: "Kumbasi Project - New generation housing",
+        features: ["Akıllı ev sistemleri", "Güneş panelleri"],
+        featuresEn: ["Smart home systems", "Solar panels"],
+        images: ["/modern-apartment-building.png"],
+        progress: 35
+    }
+]
+
+// Varsayılan blog yazıları
+const defaultBlogPosts: BlogPost[] = [
+    {
+        id: "1",
+        title: "2025 İnşaat Trendleri: Sürdürülebilir Yapı Malzemeleri",
+        titleEn: "2025 Construction Trends: Sustainable Building Materials",
+        excerpt: "İnşaat sektöründe sürdürülebilirlik giderek daha önemli hale geliyor...",
+        excerptEn: "Sustainability is becoming increasingly important in the construction sector...",
+        content: "<h2>Sürdürülebilir İnşaatın Önemi</h2><p>İnşaat sektörü küresel karbon emisyonlarının önemli bir kaynağıdır...</p>",
+        contentEn: "<h2>The Importance of Sustainable Construction</h2><p>The construction industry is a significant source of global carbon emissions...</p>",
+        author: "Elif Yılmaz",
+        date: "2024-12-15",
+        category: "Trendler",
+        categoryEn: "Trends"
+    }
+]
+
+// LocalStorage işlemleri
+const STORAGE_KEYS = {
+    services: "aslan_services",
+    projects: "aslan_projects",
+    blogPosts: "aslan_blog_posts"
+}
+
+// Hizmetler
+export function getServices(): Service[] {
+    if (typeof window === "undefined") return defaultServices
+    const stored = localStorage.getItem(STORAGE_KEYS.services)
+    if (stored) {
+        try {
+            return JSON.parse(stored)
+        } catch {
+            return defaultServices
+        }
+    }
+    localStorage.setItem(STORAGE_KEYS.services, JSON.stringify(defaultServices))
+    return defaultServices
+}
+
+export function saveServices(services: Service[]): void {
+    localStorage.setItem(STORAGE_KEYS.services, JSON.stringify(services))
+}
+
+export function addService(service: Omit<Service, "id">): Service {
+    const services = getServices()
+    const newService = { ...service, id: Date.now().toString() }
+    services.push(newService)
+    saveServices(services)
+    return newService
+}
+
+export function updateService(id: string, updates: Partial<Service>): Service | null {
+    const services = getServices()
+    const index = services.findIndex(s => s.id === id)
+    if (index === -1) return null
+    services[index] = { ...services[index], ...updates }
+    saveServices(services)
+    return services[index]
+}
+
+export function deleteService(id: string): boolean {
+    const services = getServices()
+    const filtered = services.filter(s => s.id !== id)
+    if (filtered.length === services.length) return false
+    saveServices(filtered)
+    return true
+}
+
+// Projeler
+export function getProjects(): Project[] {
+    if (typeof window === "undefined") return defaultProjects
+    const stored = localStorage.getItem(STORAGE_KEYS.projects)
+    if (stored) {
+        try {
+            return JSON.parse(stored)
+        } catch {
+            return defaultProjects
+        }
+    }
+    localStorage.setItem(STORAGE_KEYS.projects, JSON.stringify(defaultProjects))
+    return defaultProjects
+}
+
+export function saveProjects(projects: Project[]): void {
+    localStorage.setItem(STORAGE_KEYS.projects, JSON.stringify(projects))
+}
+
+export function addProject(project: Omit<Project, "id">): Project {
+    const projects = getProjects()
+    const newProject = { ...project, id: Date.now().toString() }
+    projects.push(newProject)
+    saveProjects(projects)
+    return newProject
+}
+
+export function updateProject(id: string, updates: Partial<Project>): Project | null {
+    const projects = getProjects()
+    const index = projects.findIndex(p => p.id === id)
+    if (index === -1) return null
+    projects[index] = { ...projects[index], ...updates }
+    saveProjects(projects)
+    return projects[index]
+}
+
+export function deleteProject(id: string): boolean {
+    const projects = getProjects()
+    const filtered = projects.filter(p => p.id !== id)
+    if (filtered.length === projects.length) return false
+    saveProjects(filtered)
+    return true
+}
+
+// Blog Yazıları
+export function getBlogPosts(): BlogPost[] {
+    if (typeof window === "undefined") return defaultBlogPosts
+    const stored = localStorage.getItem(STORAGE_KEYS.blogPosts)
+    if (stored) {
+        try {
+            return JSON.parse(stored)
+        } catch {
+            return defaultBlogPosts
+        }
+    }
+    localStorage.setItem(STORAGE_KEYS.blogPosts, JSON.stringify(defaultBlogPosts))
+    return defaultBlogPosts
+}
+
+export function saveBlogPosts(posts: BlogPost[]): void {
+    localStorage.setItem(STORAGE_KEYS.blogPosts, JSON.stringify(posts))
+}
+
+export function addBlogPost(post: Omit<BlogPost, "id">): BlogPost {
+    const posts = getBlogPosts()
+    const newPost = { ...post, id: Date.now().toString() }
+    posts.push(newPost)
+    saveBlogPosts(posts)
+    return newPost
+}
+
+export function updateBlogPost(id: string, updates: Partial<BlogPost>): BlogPost | null {
+    const posts = getBlogPosts()
+    const index = posts.findIndex(p => p.id === id)
+    if (index === -1) return null
+    posts[index] = { ...posts[index], ...updates }
+    saveBlogPosts(posts)
+    return posts[index]
+}
+
+export function deleteBlogPost(id: string): boolean {
+    const posts = getBlogPosts()
+    const filtered = posts.filter(p => p.id !== id)
+    if (filtered.length === posts.length) return false
+    saveBlogPosts(filtered)
+    return true
+}

@@ -1,0 +1,110 @@
+{
+    "nav": {
+        "home": "Anasayfa",
+        "about": "Hakkımızda",
+        "services": "Hizmetlerimiz",
+        "projects": "Projelerimiz",
+        "blog": "Blog",
+        "catalog": "Katalog",
+        "contact": "İletişim",
+        "getQuote": "Teklif Al",
+        "faq": "SSS"
+    },
+    "hero": {
+        "title": "Hayalinizdeki Yapıyı İnşa Ediyoruz",
+        "subtitle": "25 yılı aşkın deneyimimizle modern, güvenli ve estetik yapılar inşa ediyoruz.",
+        "cta": "Projelerimizi İnceleyin",
+        "contact": "İletişime Geçin"
+    },
+    "stats": {
+        "experience": "Yıllık Deneyim",
+        "projects": "Tamamlanan Proje",
+        "clients": "Mutlu Müşteri",
+        "satisfaction": "Memnuniyet"
+    },
+    "services": {
+        "title": "Kapsamlı İnşaat Çözümleri",
+        "subtitle": "Her türlü inşaat ihtiyacınız için profesyonel ve güvenilir hizmet",
+        "residential": {
+            "title": "Konut Projeleri",
+            "desc": "Modern ve güvenli konut projelerini anahtar teslim olarak hayata geçiriyoruz."
+        },
+        "commercial": {
+            "title": "Ticari Binalar",
+            "desc": "Ofis binaları, alışveriş merkezleri ve endüstriyel yapılar için fonksiyonel tasarımlar."
+        },
+        "renovation": {
+            "title": "Tadilat & Renovasyon",
+            "desc": "Mevcut yapılarınızı yenileme ve modernize etme hizmetleri."
+        },
+        "consulting": {
+            "title": "Proje Danışmanlığı",
+            "desc": "İnşaat projeleriniz için profesyonel danışmanlık ve proje yönetimi."
+        },
+        "learnMore": "Detaylı Bilgi"
+    },
+    "whyUs": {
+        "title": "Neden Aslan İnşaat?",
+        "subtitle": "Sektörde fark yaratan özelliklerimiz",
+        "fast": {
+            "title": "Hızlı & Verimli",
+            "desc": "Projelerinizi zamanında, hatta erken teslim etme taahhüdümüz"
+        },
+        "quality": {
+            "title": "Güvenli & Kaliteli",
+            "desc": "Yüksek kalite standartları ve 2 yıl yapısal garanti"
+        },
+        "support": {
+            "title": "7/24 Destek",
+            "desc": "Proje süresince ve sonrasında kesintisiz teknik destek"
+        }
+    },
+    "projects": {
+        "title": "Projelerimiz",
+        "subtitle": "Tamamladığımız ve devam eden başarı hikayelerimiz",
+        "viewAll": "Tüm Projeleri Görüntüle",
+        "completed": "Tamamlandı",
+        "ongoing": "Devam Ediyor",
+        "all": "Tümü"
+    },
+    "testimonials": {
+        "title": "Müşterilerimiz Ne Diyor?",
+        "subtitle": "Tamamladığımız projelerdeki müşteri memnuniyeti ve güven"
+    },
+    "cta": {
+        "title": "Projenizi Hayata Geçirelim",
+        "subtitle": "Hayalinizdeki yapıyı birlikte planlayalım. Ücretsiz keşif ve danışmanlık için bizimle iletişime geçin.",
+        "contact": "İletişime Geçin",
+        "catalog": "Kataloğumuzu İnceleyin"
+    },
+    "footer": {
+        "description": "25 yılı aşkın tecrübemizle hayallerinizdeki yaşam alanlarını inşa ediyoruz.",
+        "quickLinks": "Hızlı Bağlantılar",
+        "contact": "İletişim",
+        "address": "Adres",
+        "phone": "Telefon",
+        "email": "E-posta",
+        "rights": "Tüm hakları saklıdır.",
+        "privacy": "Gizlilik Politikası",
+        "terms": "Kullanım Koşulları"
+    },
+    "quote": {
+        "title": "Ücretsiz Teklif Alın",
+        "subtitle": "Projeniz hakkında birkaç bilgi verin, size özel fiyat teklifi hazırlayalım.",
+        "step1": "Proje Tipinizi Seçin",
+        "step2": "Proje Detayları",
+        "step3": "Zaman ve Konum",
+        "step4": "İletişim Bilgileriniz",
+        "next": "İleri",
+        "back": "Geri",
+        "submit": "Teklif İste",
+        "success": "Talebiniz Alındı!"
+    },
+    "faq": {
+        "title": "Sıkça Sorulan Sorular",
+        "subtitle": "İnşaat süreçleri hakkında merak ettiğiniz tüm soruların yanıtları",
+        "search": "Soru ara...",
+        "noAnswer": "Sorunuzun cevabını bulamadınız mı?",
+        "contactUs": "Bize doğrudan ulaşın"
+    }
+}
