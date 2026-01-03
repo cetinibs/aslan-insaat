@@ -1,0 +1,30 @@
+# Dependencies
+node_modules
+npm-debug.log
+
+# Next.js build output
+.next
+out
+
+# IDE
+.vscode
+.idea
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git
+.gitignore
+
+# Environment - yerel environment dosyaları
+.env*.local
+
+# Test
+coverage
+.nyc_output
+
+# Temp
+*.tmp
+*.temp
