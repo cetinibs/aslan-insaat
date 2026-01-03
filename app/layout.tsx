@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://aslaninsaat.com"),
+  metadataBase: new URL("https://aslaninsaat.net"),
   alternates: {
     canonical: "/",
     languages: {
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "tr_TR",
-    url: "https://aslaninsaat.com",
+    url: "https://aslaninsaat.net",
     siteName: "Aslan İnşaat",
     title: "Aslan İnşaat - Güvenilir İnşaat Çözümleri",
     description:
@@ -106,8 +106,8 @@ const structuredData = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "Aslan İnşaat",
-  url: "https://aslaninsaat.com",
-  logo: "https://aslaninsaat.com/logo.jpg",
+  url: "https://aslaninsaat.net",
+  logo: "https://aslaninsaat.net/logo.jpg",
   description: "Türkiye'nin güvenilir inşaat şirketi. Konut, ticari bina ve tadilat projeleri.",
   address: {
     "@type": "PostalAddress",

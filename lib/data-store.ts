@@ -43,6 +43,45 @@ export interface BlogPost {
     featuredImage?: string
 }
 
+export interface SiteSettings {
+    // Genel Bilgiler
+    siteName: string
+    siteNameEn: string
+    siteDescription: string
+    siteDescriptionEn: string
+    siteKeywords: string
+    siteKeywordsEn: string
+
+    // Logo ve Görseller
+    logo: string
+    logoAlt: string
+    favicon: string
+    ogImage: string // Open Graph resmi (sosyal medya paylaşımı)
+
+    // İletişim Bilgileri
+    phone: string
+    email: string
+    address: string
+    addressEn: string
+    whatsapp: string
+
+    // Sosyal Medya
+    instagram: string
+    facebook: string
+    twitter: string
+    linkedin: string
+    youtube: string
+
+    // Analytics ve Takip Kodları
+    googleAnalyticsId: string
+    googleTagManagerId: string
+    facebookPixelId: string
+
+    // Diğer Ayarlar
+    copyrightText: string
+    copyrightTextEn: string
+}
+
 // Varsayılan hizmetler
 const defaultServices: Service[] = [
     {
@@ -140,11 +179,52 @@ const defaultBlogPosts: BlogPost[] = [
     }
 ]
 
+// Varsayılan site ayarları
+const defaultSiteSettings: SiteSettings = {
+    // Genel Bilgiler
+    siteName: "Aslan İnşaat",
+    siteNameEn: "Aslan Construction",
+    siteDescription: "30 yılı aşkın tecrübesiyle güvenilir inşaat çözümleri sunan Aslan İnşaat, konut ve ticari projelerde kaliteyi ve müşteri memnuniyetini ön planda tutar.",
+    siteDescriptionEn: "Aslan Construction offers reliable construction solutions with over 30 years of experience, prioritizing quality and customer satisfaction in residential and commercial projects.",
+    siteKeywords: "inşaat, müteahhit, konut, bina, proje, istanbul, aslan inşaat",
+    siteKeywordsEn: "construction, contractor, residential, building, project, istanbul, aslan construction",
+
+    // Logo ve Görseller
+    logo: "/images/aslan-insaat-logo - son.jpg",
+    logoAlt: "Aslan İnşaat Logo",
+    favicon: "/favicon.ico",
+    ogImage: "/images/og-image.jpg",
+
+    // İletişim Bilgileri
+    phone: "+90 542 274 05 94",
+    email: "info@aslaninsaat.net",
+    address: "Çakmak Mah. Seyrek Sok. Lina Apt. 17/10, Ümraniye, İstanbul",
+    addressEn: "Çakmak Mah. Seyrek Sok. Lina Apt. 17/10, Ümraniye, Istanbul",
+    whatsapp: "+905422740594",
+
+    // Sosyal Medya
+    instagram: "https://www.instagram.com/aslaninsaat",
+    facebook: "",
+    twitter: "",
+    linkedin: "",
+    youtube: "",
+
+    // Analytics ve Takip Kodları
+    googleAnalyticsId: "",
+    googleTagManagerId: "",
+    facebookPixelId: "",
+
+    // Diğer Ayarlar
+    copyrightText: "© 2025 Aslan İnşaat. Tüm hakları saklıdır.",
+    copyrightTextEn: "© 2025 Aslan Construction. All rights reserved."
+}
+
 // LocalStorage işlemleri
 const STORAGE_KEYS = {
     services: "aslan_services",
     projects: "aslan_projects",
-    blogPosts: "aslan_blog_posts"
+    blogPosts: "aslan_blog_posts",
+    siteSettings: "aslan_site_settings"
 }
 
 // Hizmetler
@@ -277,4 +357,31 @@ export function deleteBlogPost(id: string): boolean {
     if (filtered.length === posts.length) return false
     saveBlogPosts(filtered)
     return true
+}
+
+// Site Ayarları
+export function getSiteSettings(): SiteSettings {
+    if (typeof window === "undefined") return defaultSiteSettings
+    const stored = localStorage.getItem(STORAGE_KEYS.siteSettings)
+    if (stored) {
+        try {
+            // Varsayılan ayarlarla birleştir (yeni alanlar için)
+            return { ...defaultSiteSettings, ...JSON.parse(stored) }
+        } catch {
+            return defaultSiteSettings
+        }
+    }
+    localStorage.setItem(STORAGE_KEYS.siteSettings, JSON.stringify(defaultSiteSettings))
+    return defaultSiteSettings
+}
+
+export function saveSiteSettings(settings: SiteSettings): void {
+    localStorage.setItem(STORAGE_KEYS.siteSettings, JSON.stringify(settings))
+}
+
+export function updateSiteSettings(updates: Partial<SiteSettings>): SiteSettings {
+    const current = getSiteSettings()
+    const updated = { ...current, ...updates }
+    saveSiteSettings(updated)
+    return updated
 }

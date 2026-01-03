@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
             allow: '/',
             disallow: ['/api/', '/_next/', '/admin/'],
         },
-        sitemap: 'https://aslaninsaat.com/sitemap.xml',
+        sitemap: 'https://aslaninsaat.net/sitemap.xml',
     }
 }

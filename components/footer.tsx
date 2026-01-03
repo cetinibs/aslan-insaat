@@ -1,11 +1,18 @@
 "use client"
 
 import Link from "next/link"
-import { Mail, Phone, MapPin, Instagram } from "lucide-react"
+import { Mail, Phone, MapPin, Instagram, ArrowUp } from "lucide-react"
 import { useLanguage } from "@/lib/i18n"
 
 export function Footer() {
   const { t, locale } = useLanguage()
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    })
+  }
 
   return (
     <footer className="bg-primary text-primary-foreground">
@@ -93,8 +100,21 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-primary-foreground/20 mt-12 pt-8 text-center text-sm text-primary-foreground/60">
-          <p>© 2025 Aslan İnşaat. {t("footer.rights")}</p>
+        <div className="border-t border-primary-foreground/20 mt-12 pt-8 flex items-center justify-between text-sm text-primary-foreground/60">
+          {/* Sol taraf - Yukarı Ok Butonu */}
+          <button
+            onClick={scrollToTop}
+            className="flex items-center justify-center w-10 h-10 rounded-full bg-secondary text-secondary-foreground hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl group"
+            aria-label="Yukarı git"
+          >
+            <ArrowUp size={20} className="group-hover:-translate-y-0.5 transition-transform" />
+          </button>
+
+          {/* Orta - Copyright */}
+          <p className="flex-1 text-center">© 2025 Aslan İnşaat. {t("footer.rights")}</p>
+
+          {/* Sağ taraf - Boş alan (simetri için) */}
+          <div className="w-10"></div>
         </div>
       </div>
     </footer>

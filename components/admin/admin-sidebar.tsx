@@ -11,7 +11,8 @@ import {
     LogOut,
     Building2,
     Menu,
-    X
+    X,
+    Settings
 } from "lucide-react"
 import { useState } from "react"
 
@@ -20,6 +21,7 @@ const menuItems = [
     { href: "/admin/hizmetler", label: "Hizmetler", icon: Wrench },
     { href: "/admin/projeler", label: "Projeler", icon: FolderKanban },
     { href: "/admin/blog", label: "Blog Yazıları", icon: FileText },
+    { href: "/admin/ayarlar", label: "Ayarlar", icon: Settings },
 ]
 
 export function AdminSidebar() {
