@@ -1,0 +1,232 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Hizmetler tablosu
+model Service {
+  id            String   @id @default(cuid())
+  title         String
+  titleEn       String
+  description   String
+  descriptionEn String
+  icon          String
+  features      String[] // PostgreSQL array
+  featuresEn    String[] // PostgreSQL array
+  sortOrder     Int      @default(0)
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("services")
+}
+
+// Projeler tablosu
+model Project {
+  id            String        @id @default(cuid())
+  title         String
+  category      ProjectCategory
+  status        ProjectStatus
+  year          String
+  location      String
+  area          String
+  units         String
+  description   String        @db.Text
+  descriptionEn String        @db.Text
+  features      String[]
+  featuresEn    String[]
+  images        String[]
+  progress      Int?          @default(0)
+  isFeatured    Boolean       @default(false)
+  sortOrder     Int           @default(0)
+  isActive      Boolean       @default(true)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@map("projects")
+}
+
+enum ProjectCategory {
+  konut
+  ticari
+}
+
+enum ProjectStatus {
+  completed
+  ongoing
+}
+
+// Blog yazıları tablosu
+model BlogPost {
+  id            String   @id @default(cuid())
+  title         String
+  titleEn       String
+  slug          String   @unique
+  excerpt       String   @db.Text
+  excerptEn     String   @db.Text
+  content       String   @db.Text
+  contentEn     String   @db.Text
+  author        String
+  date          DateTime
+  category      String
+  categoryEn    String
+  featuredImage String?
+  isPublished   Boolean  @default(false)
+  views         Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("blog_posts")
+}
+
+// Site ayarları tablosu (key-value çifti olarak)
+model SiteSetting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String   @db.Text
+  type      String   @default("string") // string, json, boolean, number
+  group     String   @default("general") // general, contact, social, analytics, seo
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("site_settings")
+}
+
+// SSS tablosu
+model FAQ {
+  id         String   @id @default(cuid())
+  question   String
+  questionEn String
+  answer     String   @db.Text
+  answerEn   String   @db.Text
+  category   String
+  categoryEn String
+  sortOrder  Int      @default(0)
+  isActive   Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("faqs")
+}
+
+// İletişim formları tablosu
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  subject   String?
+  message   String   @db.Text
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@map("contact_messages")
+}
+
+// Teklif talepleri tablosu
+model QuoteRequest {
+  id             String   @id @default(cuid())
+  name           String
+  email          String
+  phone          String
+  company        String?
+  projectType    String
+  projectDetails String   @db.Text
+  budget         String?
+  timeline       String?
+  status         QuoteStatus @default(pending)
+  notes          String?  @db.Text
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@map("quote_requests")
+}
+
+enum QuoteStatus {
+  pending
+  contacted
+  negotiating
+  accepted
+  rejected
+}
+
+// Hakkımızda bilgileri
+model AboutInfo {
+  id          String   @id @default(cuid())
+  title       String
+  titleEn     String
+  content     String   @db.Text
+  contentEn   String   @db.Text
+  section     String   // mission, vision, history, values
+  image       String?
+  sortOrder   Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("about_info")
+}
+
+// Ekip üyeleri
+model TeamMember {
+  id          String   @id @default(cuid())
+  name        String
+  title       String
+  titleEn     String
+  bio         String?  @db.Text
+  bioEn       String?  @db.Text
+  image       String?
+  email       String?
+  phone       String?
+  linkedin    String?
+  sortOrder   Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("team_members")
+}
+
+// Medya/Dosya yönetimi
+model Media {
+  id          String   @id @default(cuid())
+  filename    String
+  originalName String
+  mimeType    String
+  size        Int
+  url         String
+  alt         String?
+  caption     String?
+  folder      String   @default("uploads")
+  createdAt   DateTime @default(now())
+
+  @@map("media")
+}
+
+// Admin kullanıcıları
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  role         AdminRole @default(editor)
+  isActive     Boolean  @default(true)
+  lastLogin    DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("admin_users")
+}
+
+enum AdminRole {
+  admin
+  editor
+  viewer
+}
