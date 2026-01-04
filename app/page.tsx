@@ -71,14 +71,14 @@ export default function HomePage() {
       type: locale === "en" ? "Residential" : "Konut Projesi",
       year: "2024",
       status: t("projects.completed"),
-      image: "/eyupcan-apartmani.jpeg",
+      image: "/images/sultanbeyli-projesi.jpg",
     },
     {
       title: "ATAŞEHİR PROJESİ",
       type: locale === "en" ? "Commercial & Residential" : "Konut ve Ticari",
       year: "2023",
       status: t("projects.completed"),
-      image: "/mustafa-kemal.jpeg",
+      image: "/images/atasehir-projesi.jpg",
     },
   ]
 
@@ -246,7 +246,7 @@ export default function HomePage() {
               className="md:col-span-2 md:row-span-2 group relative overflow-hidden rounded-3xl aspect-square md:aspect-auto"
             >
               <Image
-                src="/ersa-orman-evleri.png"
+                src="/images/cumhuriyet-mah-projesi.jpg"
                 alt="CUMHURİYET MAHALLESİ PROJESİ"
                 fill
                 className="object-cover group-hover:scale-110 transition-transform duration-700"
