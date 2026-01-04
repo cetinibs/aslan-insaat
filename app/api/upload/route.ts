@@ -53,8 +53,19 @@ export async function POST(request: NextRequest) {
         const buffer = Buffer.from(bytes)
         await writeFile(filePath, buffer)
 
+        // Dosyanın gerçekten kaydedildiğini kontrol et
+        if (!existsSync(filePath)) {
+            throw new Error("Dosya kaydedilemedi")
+        }
+
         // Public URL döndür
         const publicUrl = `/${folder}/${fileName}`
+
+        console.log("Dosya yüklendi:", {
+            filePath,
+            publicUrl,
+            fileSize: buffer.length
+        })
 
         return NextResponse.json({
             success: true,

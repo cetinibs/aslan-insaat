@@ -172,14 +172,19 @@ export default function AdminProjectsPage() {
         setIsUploading(true)
         setUploadProgress("Öne çıkarılmış resim yükleniyor...")
 
-        const url = await uploadFile(file)
-        if (url) {
-            setFormData({ ...formData, featuredImage: url })
+        try {
+            const url = await uploadFile(file)
+            if (url) {
+                setFormData((prev) => ({ ...prev, featuredImage: url }))
+            }
+        } catch (error) {
+            console.error("Resim yükleme hatası:", error)
+            alert("Resim yüklenirken bir hata oluştu")
+        } finally {
+            setIsUploading(false)
+            setUploadProgress("")
+            if (featuredImageRef.current) featuredImageRef.current.value = ""
         }
-
-        setIsUploading(false)
-        setUploadProgress("")
-        if (featuredImageRef.current) featuredImageRef.current.value = ""
     }
 
     // Galeri resimleri yükleme
@@ -190,28 +195,37 @@ export default function AdminProjectsPage() {
         setIsUploading(true)
         const uploadedUrls: string[] = []
 
-        for (let i = 0; i < files.length; i++) {
-            setUploadProgress(`Resim yükleniyor... (${i + 1}/${files.length})`)
-            const url = await uploadFile(files[i])
-            if (url) {
-                uploadedUrls.push(url)
+        try {
+            for (let i = 0; i < files.length; i++) {
+                setUploadProgress(`Resim yükleniyor... (${i + 1}/${files.length})`)
+                const url = await uploadFile(files[i])
+                if (url) {
+                    uploadedUrls.push(url)
+                }
             }
+
+            if (uploadedUrls.length > 0) {
+                setFormData((prev) => ({
+                    ...prev,
+                    galleryImages: [...prev.galleryImages, ...uploadedUrls]
+                }))
+            }
+        } catch (error) {
+            console.error("Resim yükleme hatası:", error)
+            alert("Resimler yüklenirken bir hata oluştu")
+        } finally {
+            setIsUploading(false)
+            setUploadProgress("")
+            if (galleryImagesRef.current) galleryImagesRef.current.value = ""
         }
-
-        setFormData({
-            ...formData,
-            galleryImages: [...formData.galleryImages, ...uploadedUrls]
-        })
-
-        setIsUploading(false)
-        setUploadProgress("")
-        if (galleryImagesRef.current) galleryImagesRef.current.value = ""
     }
 
     // Galeri resmi silme
     const removeGalleryImage = (index: number) => {
-        const newImages = formData.galleryImages.filter((_, i) => i !== index)
-        setFormData({ ...formData, galleryImages: newImages })
+        setFormData((prev) => ({
+            ...prev,
+            galleryImages: prev.galleryImages.filter((_, i) => i !== index)
+        }))
     }
 
     // Sürükle-bırak işlemleri
@@ -457,10 +471,17 @@ export default function AdminProjectsPage() {
                                                 src={formData.featuredImage}
                                                 alt="Öne çıkarılmış"
                                                 className="w-full h-48 object-cover rounded-lg"
+                                                onError={(e) => {
+                                                    const img = e.currentTarget
+                                                    console.error("Resim yüklenemedi:", formData.featuredImage)
+                                                    // Placeholder göster
+                                                    img.onerror = null // Sonsuz döngüyü önle
+                                                    img.src = "/placeholder.jpg"
+                                                }}
                                             />
                                             <button
                                                 type="button"
-                                                onClick={() => setFormData({ ...formData, featuredImage: "" })}
+                                                onClick={() => setFormData((prev) => ({ ...prev, featuredImage: "" }))}
                                                 className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full hover:bg-red-600"
                                             >
                                                 <X size={16} />
