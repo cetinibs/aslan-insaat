@@ -12,14 +12,27 @@ export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const { t } = useLanguage()
+  const [settings, setSettings] = useState<any>(null)
 
   useEffect(() => {
+    // Scroll handler
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20)
     }
     window.addEventListener("scroll", handleScroll)
+
+    // Site ayarlarını yükle
+    import("@/lib/data-store").then(mod => {
+      setSettings(mod.getSiteSettings())
+    })
+
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
+
+  // Varsayılan değerler (ayarlar yüklenene kadar veya yoksa)
+  const logoSrc = settings?.logo || "/images/aslan-insaat-logo - son.jpg"
+  const logoAlt = settings?.logoAlt || "Aslan İnşaat Logo"
+  const instagramLink = settings?.instagram || "https://www.instagram.com/aslaninsaat"
 
   return (
     <header
@@ -32,9 +45,9 @@ export function Header() {
         <div className="flex items-center justify-between h-20">
           <Link href="/" className="flex items-center">
             <img
-              src="/logo.jpg"
-              alt="Aslan İnşaat Logo"
-              className="h-14 w-auto object-contain border-2 border-amber-500/70 rounded-lg shadow-md"
+              src={logoSrc}
+              alt={logoAlt}
+              className="h-14 w-auto object-contain border-2 border-amber-500/70 rounded-lg shadow-md bg-white/10"
             />
           </Link>
 
@@ -58,15 +71,17 @@ export function Header() {
             <Link href="/blog" className="text-sm font-medium text-white hover:text-primary transition-colors">
               {t("nav.blog")}
             </Link>
-            <a
-              href="https://www.instagram.com/aslaninsaat"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white hover:text-primary transition-colors"
-              aria-label="Instagram"
-            >
-              <Instagram size={20} />
-            </a>
+            {instagramLink && (
+              <a
+                href={instagramLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white hover:text-primary transition-colors"
+                aria-label="Instagram"
+              >
+                <Instagram size={20} />
+              </a>
+            )}
             <LanguageSwitcher />
             <ThemeSwitcher />
             <Link href="/teklif">
@@ -134,16 +149,18 @@ export function Header() {
               >
                 {t("nav.blog")}
               </Link>
-              <a
-                href="https://www.instagram.com/aslaninsaat"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-base font-medium text-white hover:text-primary transition-colors px-2 py-1 flex items-center gap-2"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <Instagram size={20} />
-                Instagram
-              </a>
+              {instagramLink && (
+                <a
+                  href={instagramLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-base font-medium text-white hover:text-primary transition-colors px-2 py-1 flex items-center gap-2"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <Instagram size={20} />
+                  Instagram
+                </a>
+              )}
               <div className="px-2 py-1">
                 <LanguageSwitcher variant="footer" />
               </div>
