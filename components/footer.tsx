@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Mail, Phone, MapPin, Instagram, ArrowUp } from "lucide-react"
@@ -44,9 +45,11 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           <div>
             <Link href="/" className="inline-block mb-4">
-              <img
+              <Image
                 src={logoSrc}
                 alt={logoAlt}
+                width={240}
+                height={64}
                 className="h-16 w-auto object-contain bg-white/10 rounded-lg p-1"
               />
             </Link>

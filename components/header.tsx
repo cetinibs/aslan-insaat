@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import Link from "next/link"
 import { useState, useEffect } from "react"
 import { Menu, X, Instagram, FileText } from "lucide-react"
@@ -44,10 +45,13 @@ export function Header() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           <Link href="/" className="flex items-center">
-            <img
+            <Image
               src={logoSrc}
               alt={logoAlt}
+              width={200}
+              height={56}
               className="h-14 w-auto object-contain border-2 border-amber-500/70 rounded-lg shadow-md bg-white/10"
+              priority
             />
           </Link>
 
