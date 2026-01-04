@@ -75,9 +75,10 @@ export function HeroSlider() {
               alt={slide.title}
               fill
               className="object-cover object-center"
-              quality={95}
+              quality={80}
               sizes="100vw"
               priority={index === 0}
+              loading={index === 0 ? "eager" : "lazy"}
             />
             {/* Overlay Gradient - Daha şık ve profesyonel */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/50 to-black/25" />

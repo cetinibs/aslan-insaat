@@ -1,5 +1,4 @@
-"use client"
-
+import Image from "next/image"
 import Link from "next/link"
 import { MapPin, Calendar, ArrowUpRight } from "lucide-react"
 
@@ -31,10 +30,13 @@ export function ProjectCard({
             <div className="group relative overflow-hidden rounded-3xl bg-card border shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
                 {/* Image Container */}
                 <div className="relative aspect-[4/3] overflow-hidden">
-                    <img
+                    <Image
                         src={image || "/placeholder.svg"}
                         alt={title}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-110"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        quality={80}
                     />
 
                     {/* Gradient Overlay */}
@@ -44,8 +46,8 @@ export function ProjectCard({
                     <div className="absolute top-4 left-4">
                         <span
                             className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold backdrop-blur-sm ${status === "completed"
-                                    ? "bg-emerald-500/90 text-white"
-                                    : "bg-amber-500/90 text-white"
+                                ? "bg-emerald-500/90 text-white"
+                                : "bg-amber-500/90 text-white"
                                 }`}
                         >
                             {status === "completed" ? "✓ Tamamlandı" : "⏳ Devam Ediyor"}
