@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Building2, Users, Award, TrendingUp, ArrowRight, Star, Zap, Shield, Clock } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 import { useLanguage } from "@/lib/i18n"
 
 export default function HomePage() {
@@ -66,32 +67,18 @@ export default function HomePage() {
 
   const projects = [
     {
-      title: "FERHAT PAŞA İŞ MERKEZİ",
-      type: locale === "en" ? "Business Center" : "İş Merkezi",
-      year: "2018",
-      status: t("projects.completed"),
-      image: "/ferhatpasa-is-merkezi.jpeg",
-    },
-    {
-      title: "EYÜPCAN APARTMANI",
-      type: locale === "en" ? "Residential" : "Konut",
-      year: "2014",
+      title: "SULTANBEYLİ PROJESİ",
+      type: locale === "en" ? "Residential" : "Konut Projesi",
+      year: "2024",
       status: t("projects.completed"),
       image: "/eyupcan-apartmani.jpeg",
     },
     {
-      title: "MUSTAFA KEMAL PROJESİ",
-      type: locale === "en" ? "Residential" : "Konut",
-      year: "2018",
+      title: "ATAŞEHİR PROJESİ",
+      type: locale === "en" ? "Commercial & Residential" : "Konut ve Ticari",
+      year: "2023",
       status: t("projects.completed"),
       image: "/mustafa-kemal.jpeg",
-    },
-    {
-      title: "Business Center",
-      type: locale === "en" ? "Commercial Plaza" : "Ticari Plaza",
-      year: "2025",
-      status: t("projects.ongoing"),
-      image: "/modern-office-glass.png",
     },
   ]
 
@@ -253,23 +240,25 @@ export default function HomePage() {
 
           {/* Bento Grid Layout */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto mb-12">
-            {/* Large Featured Project */}
+            {/* Large Featured Project - CUMHURİYET MAHALLESİ */}
             <Link
-              href="/projeler/1"
+              href="/projeler"
               className="md:col-span-2 md:row-span-2 group relative overflow-hidden rounded-3xl aspect-square md:aspect-auto"
             >
-              <img
-                src="/ersa.jpeg"
-                alt="ERSA ORMAN EVLERİ"
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+              <Image
+                src="/ersa-orman-evleri.png"
+                alt="CUMHURİYET MAHALLESİ PROJESİ"
+                fill
+                className="object-cover group-hover:scale-110 transition-transform duration-700"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 66vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
                 <div className="inline-block px-3 py-1 bg-primary rounded-full text-xs font-semibold mb-3">
-                  {t("projects.completed")}
+                  {t("projects.ongoing")}
                 </div>
-                <h3 className="text-3xl md:text-4xl font-bold mb-2">ERSA ORMAN EVLERİ</h3>
-                <p className="text-white/80 text-lg">{locale === "en" ? "Residential Project" : "Konut Projesi"} • 2018</p>
+                <h3 className="text-3xl md:text-4xl font-bold mb-2">CUMHURİYET MAHALLESİ PROJESİ</h3>
+                <p className="text-white/80 text-lg">{locale === "en" ? "Residential Project" : "Konut Projesi"} • 2025</p>
               </div>
             </Link>
 
@@ -277,13 +266,15 @@ export default function HomePage() {
             {projects.map((project, index) => (
               <Link
                 key={index}
-                href={`/projeler/${index + 2}`}
+                href="/projeler"
                 className="group relative overflow-hidden rounded-3xl aspect-square"
               >
-                <img
+                <Image
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-700"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 33vw"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
@@ -411,6 +402,6 @@ export default function HomePage() {
       </section>
 
       <Footer />
-    </div>
+    </div >
   )
 }
