@@ -1,11 +1,35 @@
 // Seed script - CommonJS for Node.js compatibility
 require('dotenv').config()
 const { PrismaClient } = require('@prisma/client')
+const bcrypt = require('bcryptjs')
 
 const prisma = new PrismaClient()
 
 async function main() {
     console.log('🌱 Veritabanı seed işlemi başlatılıyor...')
+
+    // Admin kullanıcısı oluştur (şifreyi hashle)
+    const adminPassword = 'aslan2025'
+    const passwordHash = await bcrypt.hash(adminPassword, 12)
+
+    await prisma.adminUser.upsert({
+        where: { email: 'admin@aslaninsaat.com' },
+        update: {
+            passwordHash,
+            name: 'Admin',
+            role: 'admin',
+            isActive: true,
+        },
+        create: {
+            id: 'admin-1',
+            email: 'admin@aslaninsaat.com',
+            passwordHash,
+            name: 'Admin',
+            role: 'admin',
+            isActive: true,
+        },
+    })
+    console.log('✅ Admin kullanıcısı eklendi (admin@aslaninsaat.com / aslan2025)')
 
     // Hizmetler
     const services = [

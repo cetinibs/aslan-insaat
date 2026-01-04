@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState, useRef, useCallback } from "react"
 import { useRouter } from "next/navigation"
 import { useAdminAuth } from "@/lib/admin-auth"
 import { AdminSidebar } from "@/components/admin/admin-sidebar"
@@ -10,15 +10,35 @@ import {
     Plus, Pencil, Trash2, X, Save, FolderKanban, MapPin, Calendar,
     Upload, Image as ImageIcon, GripVertical, Star, Loader2
 } from "lucide-react"
-import { getProjects, addProject, updateProject, deleteProject, Project } from "@/lib/data-store"
+
+interface Project {
+    id: string
+    title: string
+    category: "konut" | "ticari"
+    status: "completed" | "ongoing"
+    year: string
+    location: string
+    area: string
+    units: string
+    description: string
+    descriptionEn: string
+    features: string[]
+    featuresEn: string[]
+    images: string[]
+    progress?: number
+    isFeatured?: boolean
+    sortOrder?: number
+}
 
 export default function AdminProjectsPage() {
     const { isAuthenticated, isLoading } = useAdminAuth()
     const router = useRouter()
     const [projects, setProjects] = useState<Project[]>([])
+    const [isLoadingData, setIsLoadingData] = useState(true)
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [editingProject, setEditingProject] = useState<Project | null>(null)
     const [isUploading, setIsUploading] = useState(false)
+    const [isSaving, setIsSaving] = useState(false)
     const [uploadProgress, setUploadProgress] = useState("")
     const featuredImageRef = useRef<HTMLInputElement>(null)
     const galleryImagesRef = useRef<HTMLInputElement>(null)
@@ -41,6 +61,22 @@ export default function AdminProjectsPage() {
         progress: 0
     })
 
+    // Projeleri API'den yükle
+    const fetchProjects = useCallback(async () => {
+        try {
+            setIsLoadingData(true)
+            const response = await fetch('/api/projects')
+            if (response.ok) {
+                const data = await response.json()
+                setProjects(data)
+            }
+        } catch (error) {
+            console.error('Projeler yüklenirken hata:', error)
+        } finally {
+            setIsLoadingData(false)
+        }
+    }, [])
+
     useEffect(() => {
         if (!isLoading && !isAuthenticated) {
             router.push("/admin/giris")
@@ -49,9 +85,9 @@ export default function AdminProjectsPage() {
 
     useEffect(() => {
         if (isAuthenticated) {
-            setProjects(getProjects())
+            fetchProjects()
         }
-    }, [isAuthenticated])
+    }, [isAuthenticated, fetchProjects])
 
     const openModal = (project?: Project) => {
         if (project) {
@@ -200,8 +236,9 @@ export default function AdminProjectsPage() {
         setDraggedIndex(null)
     }
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
+        setIsSaving(true)
 
         // Tüm resimleri birleştir (önce featured, sonra galeri)
         const allImages = formData.featuredImage
@@ -224,24 +261,56 @@ export default function AdminProjectsPage() {
             progress: formData.status === "completed" ? 100 : formData.progress
         }
 
-        if (editingProject) {
-            updateProject(editingProject.id, projectData)
-        } else {
-            addProject(projectData)
-        }
+        try {
+            let response
+            if (editingProject) {
+                response = await fetch(`/api/projects/${editingProject.id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(projectData),
+                })
+            } else {
+                response = await fetch('/api/projects', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(projectData),
+                })
+            }
 
-        setProjects(getProjects())
-        closeModal()
+            if (response.ok) {
+                await fetchProjects()
+                closeModal()
+            } else {
+                const error = await response.json()
+                alert(error.error || 'İşlem başarısız')
+            }
+        } catch (error) {
+            console.error('Kaydetme hatası:', error)
+            alert('Proje kaydedilirken bir hata oluştu')
+        } finally {
+            setIsSaving(false)
+        }
     }
 
-    const handleDelete = (id: string) => {
+    const handleDelete = async (id: string) => {
         if (confirm("Bu projeyi silmek istediğinize emin misiniz?")) {
-            deleteProject(id)
-            setProjects(getProjects())
+            try {
+                const response = await fetch(`/api/projects/${id}`, {
+                    method: 'DELETE',
+                })
+                if (response.ok) {
+                    await fetchProjects()
+                } else {
+                    alert('Proje silinirken hata oluştu')
+                }
+            } catch (error) {
+                console.error('Silme hatası:', error)
+                alert('Proje silinirken bir hata oluştu')
+            }
         }
     }
 
-    if (isLoading) {
+    if (isLoading || isLoadingData) {
         return (
             <div className="min-h-screen flex items-center justify-center">
                 <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
@@ -292,8 +361,8 @@ export default function AdminProjectsPage() {
                                             <div className="flex items-center gap-2 mb-1">
                                                 <h3 className="font-semibold text-lg">{project.title}</h3>
                                                 <span className={`px-2 py-0.5 text-xs rounded-full ${project.status === "completed"
-                                                        ? "bg-green-100 text-green-700"
-                                                        : "bg-amber-100 text-amber-700"
+                                                    ? "bg-green-100 text-green-700"
+                                                    : "bg-amber-100 text-amber-700"
                                                     }`}>
                                                     {project.status === "completed" ? "Tamamlandı" : `Devam Ediyor - ${project.progress}%`}
                                                 </span>
@@ -625,8 +694,12 @@ export default function AdminProjectsPage() {
                                 <Button type="button" variant="outline" onClick={closeModal}>
                                     İptal
                                 </Button>
-                                <Button type="submit" className="gap-2" disabled={isUploading}>
-                                    <Save size={18} />
+                                <Button type="submit" className="gap-2" disabled={isUploading || isSaving}>
+                                    {isSaving ? (
+                                        <Loader2 className="w-4 h-4 animate-spin" />
+                                    ) : (
+                                        <Save size={18} />
+                                    )}
                                     {editingProject ? "Güncelle" : "Kaydet"}
                                 </Button>
                             </div>

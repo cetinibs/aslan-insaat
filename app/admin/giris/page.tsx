@@ -5,10 +5,10 @@ import { useRouter } from "next/navigation"
 import { useAdminAuth } from "@/lib/admin-auth"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { Lock, User, Eye, EyeOff, Building2 } from "lucide-react"
+import { Lock, Mail, Eye, EyeOff, Building2 } from "lucide-react"
 
 export default function AdminLoginPage() {
-    const [username, setUsername] = useState("")
+    const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [showPassword, setShowPassword] = useState(false)
     const [error, setError] = useState("")
@@ -28,14 +28,12 @@ export default function AdminLoginPage() {
         setError("")
         setIsSubmitting(true)
 
-        // Kısa gecikme simülasyonu
-        await new Promise(resolve => setTimeout(resolve, 500))
+        const result = await login(email, password)
 
-        const success = login(username, password)
-        if (success) {
+        if (result.success) {
             router.push("/admin")
         } else {
-            setError("Kullanıcı adı veya şifre hatalı!")
+            setError(result.error || "Giriş başarısız!")
         }
         setIsSubmitting(false)
     }
@@ -71,20 +69,20 @@ export default function AdminLoginPage() {
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
-                        <label htmlFor="username" className="block text-sm font-medium mb-2">
-                            Kullanıcı Adı
+                        <label htmlFor="email" className="block text-sm font-medium mb-2">
+                            E-posta
                         </label>
                         <div className="relative">
-                            <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                             <input
-                                type="text"
-                                id="username"
-                                name="username"
-                                autoComplete="username"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
+                                type="email"
+                                id="email"
+                                name="email"
+                                autoComplete="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                                 className="w-full pl-10 pr-4 py-3 border border-input rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                                placeholder="Kullanıcı adınızı girin"
+                                placeholder="admin@aslaninsaat.com"
                                 required
                             />
                         </div>

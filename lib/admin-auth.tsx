@@ -3,37 +3,59 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react"
 import { useRouter, usePathname } from "next/navigation"
 
+interface AdminUser {
+    id: string
+    email: string
+    name: string
+    role: string
+}
+
 interface AdminAuthContextType {
     isAuthenticated: boolean
     isLoading: boolean
-    login: (username: string, password: string) => boolean
+    user: AdminUser | null
+    login: (email: string, password: string) => Promise<{ success: boolean; error?: string }>
     logout: () => void
 }
 
 const AdminAuthContext = createContext<AdminAuthContextType | undefined>(undefined)
 
-// Basit admin kimlik bilgileri (production'da güvenli bir şekilde saklanmalı)
-const ADMIN_CREDENTIALS = {
-    username: "admin",
-    password: "aslan2025"
-}
+const AUTH_STORAGE_KEY = "admin_auth_token"
 
 export function AdminAuthProvider({ children }: { children: ReactNode }) {
     const [isAuthenticated, setIsAuthenticated] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
+    const [user, setUser] = useState<AdminUser | null>(null)
     const router = useRouter()
     const pathname = usePathname()
 
     useEffect(() => {
         // Sayfa yüklendiğinde oturum kontrolü
-        const checkAuth = () => {
+        const checkAuth = async () => {
             try {
-                const authToken = localStorage.getItem("admin_auth")
-                if (authToken === "authenticated") {
-                    setIsAuthenticated(true)
+                const storedData = localStorage.getItem(AUTH_STORAGE_KEY)
+                if (storedData) {
+                    const { userId, user: storedUser } = JSON.parse(storedData)
+
+                    // API'den kullanıcıyı doğrula
+                    const response = await fetch('/api/auth/me', {
+                        headers: {
+                            'Authorization': `Bearer ${userId}`,
+                        },
+                    })
+
+                    if (response.ok) {
+                        const data = await response.json()
+                        setUser(data.user || storedUser)
+                        setIsAuthenticated(true)
+                    } else {
+                        // Token geçersiz, temizle
+                        localStorage.removeItem(AUTH_STORAGE_KEY)
+                    }
                 }
             } catch (error) {
                 console.error("Auth check error:", error)
+                localStorage.removeItem(AUTH_STORAGE_KEY)
             } finally {
                 setIsLoading(false)
             }
@@ -51,23 +73,40 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
         }
     }, [isLoading, isAuthenticated, pathname, router])
 
-    const login = (username: string, password: string): boolean => {
-        if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
-            setIsAuthenticated(true)
-            try {
-                localStorage.setItem("admin_auth", "authenticated")
-            } catch (error) {
-                console.error("Login storage error:", error)
+    const login = async (email: string, password: string): Promise<{ success: boolean; error?: string }> => {
+        try {
+            const response = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            })
+
+            const data = await response.json()
+
+            if (response.ok && data.success) {
+                setUser(data.user)
+                setIsAuthenticated(true)
+                localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify({
+                    userId: data.user.id,
+                    user: data.user,
+                }))
+                return { success: true }
+            } else {
+                return { success: false, error: data.error || 'Giriş başarısız' }
             }
-            return true
+        } catch (error) {
+            console.error("Login error:", error)
+            return { success: false, error: 'Bağlantı hatası' }
         }
-        return false
     }
 
     const logout = () => {
         setIsAuthenticated(false)
+        setUser(null)
         try {
-            localStorage.removeItem("admin_auth")
+            localStorage.removeItem(AUTH_STORAGE_KEY)
         } catch (error) {
             console.error("Logout storage error:", error)
         }
@@ -75,7 +114,7 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
     }
 
     return (
-        <AdminAuthContext.Provider value={{ isAuthenticated, isLoading, login, logout }}>
+        <AdminAuthContext.Provider value={{ isAuthenticated, isLoading, user, login, logout }}>
             {children}
         </AdminAuthContext.Provider>
     )
