@@ -1,43 +1,55 @@
-# Build aşaması
-FROM node:20-alpine AS builder
+# Temel imaj
+FROM node:20-alpine AS base
 
+# Bağımlılıklar (native modüller için gerekli)
+RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-# Paket dosyalarını kopyala
-COPY package*.json ./
+# Bağımlılıkları yükle (Deps Aşaması)
+FROM base AS deps
+COPY package.json package-lock.json* ./
+COPY prisma ./prisma/
 
 # Bağımlılıkları yükle
-RUN npm ci --only=production=false
+RUN npm ci
 
-# Tüm dosyaları kopyala
+# Builder Aşaması
+FROM base AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Production build oluştur
+# Prisma istemcisini oluştur
+RUN npx prisma generate
+
+# Next.js build
 RUN npm run build
 
-# Production aşaması
-FROM node:20-alpine AS runner
-
+# Runner Aşaması (Production)
+FROM base AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
-ENV PORT=3000
-ENV HOSTNAME="0.0.0.0"
+# Next.js telemetrisini kapat (kaynak tasarrufu)
+ENV NEXT_TELEMETRY_DISABLED=1
 
-# Kullanıcı oluştur (güvenlik için)
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# Gerekli dosyaları kopyala
-COPY --from=builder --chown=nextjs:nodejs /app/public ./public
+# Public klasörünü kopyala
+COPY --from=builder /app/public ./public
+
+# Standalone çıktı ve static dosyalar
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-# Kullanıcıyı değiştir
+# Permissions
 USER nextjs
 
-# Port'u expose et
 EXPOSE 3000
 
-# Uygulamayı başlat
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
+
+# Server.js ile başlat
 CMD ["node", "server.js"]
