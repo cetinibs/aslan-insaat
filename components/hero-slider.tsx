@@ -60,61 +60,74 @@ export function HeroSlider() {
   }
 
   return (
-    <div className="relative w-full h-[70vh] overflow-hidden bg-gray-900 z-0 mt-20">
+    <div className="relative w-full h-[60vh] md:h-[80vh] overflow-hidden bg-gray-900 z-0">
       {/* Slides */}
       {slides.map((slide, index) => (
         <div
           key={index}
-          className={`absolute inset-0 transition-opacity duration-1000 overflow-hidden ${index === currentSlide ? "opacity-100" : "opacity-0"
+          className={`absolute inset-0 transition-opacity duration-1000 ${index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
             }`}
         >
-          <Image
-            src={slide.image}
-            alt={slide.title}
-            fill
-            className="object-cover"
-            priority={index === 0}
-          />
+          {/* Image */}
+          <div className="absolute inset-0">
+            <Image
+              src={slide.image}
+              alt={slide.title}
+              fill
+              className="object-cover"
+              priority={index === 0}
+            />
+            {/* Overlay Gradient */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/30" />
+            <div className="absolute inset-0 bg-black/20" />
+          </div>
 
-
+          {/* Content */}
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 sm:px-6 md:px-12 pt-16">
+            <div className={`transition-all duration-1000 transform ${index === currentSlide ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+              }`}>
+              <span className="inline-block py-1 px-3 mb-4 rounded-full bg-secondary/80 text-white text-xs md:text-sm font-medium tracking-wider backdrop-blur-sm">
+                ASLAN İNŞAAT
+              </span>
+              <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 tracking-tight drop-shadow-xl max-w-4xl mx-auto leading-tight">
+                {slide.title}
+              </h1>
+              <p className="text-lg sm:text-xl md:text-2xl text-white/90 font-light tracking-wide max-w-2xl mx-auto drop-shadow-md">
+                {slide.subtitle}
+              </p>
+            </div>
+          </div>
         </div>
       ))}
 
       {/* Navigation Arrows */}
       <button
         onClick={goToPrevSlide}
-        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-all flex items-center justify-center group"
+        className="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 z-30 w-10 h-10 md:w-12 md:h-12 rounded-full bg-black/20 hover:bg-black/40 border border-white/20 backdrop-blur-md text-white transition-all flex items-center justify-center group"
         aria-label="Previous slide"
       >
-        <ChevronLeft className="text-white group-hover:scale-110 transition-transform" size={28} />
+        <ChevronLeft className="group-hover:-translate-x-0.5 transition-transform w-5 h-5 md:w-6 md:h-6" />
       </button>
 
       <button
         onClick={goToNextSlide}
-        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-all flex items-center justify-center group"
+        className="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 z-30 w-10 h-10 md:w-12 md:h-12 rounded-full bg-black/20 hover:bg-black/40 border border-white/20 backdrop-blur-md text-white transition-all flex items-center justify-center group"
         aria-label="Next slide"
       >
-        <ChevronRight className="text-white group-hover:scale-110 transition-transform" size={28} />
+        <ChevronRight className="group-hover:translate-x-0.5 transition-transform w-5 h-5 md:w-6 md:h-6" />
       </button>
 
       {/* Dots Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-3">
+      <div className="absolute bottom-6 md:bottom-12 left-1/2 -translate-x-1/2 z-30 flex gap-2 md:gap-3">
         {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all ${index === currentSlide ? "bg-white w-8" : "bg-white/50 hover:bg-white/75"
+            className={`h-1.5 md:h-2 rounded-full transition-all duration-300 ${index === currentSlide ? "bg-secondary w-8 md:w-10" : "bg-white/40 w-1.5 md:w-2 hover:bg-white/60"
               }`}
             aria-label={`Go to slide ${index + 1}`}
           />
         ))}
-      </div>
-
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce z-20">
-        <div className="w-6 h-10 border-2 border-white/50 rounded-full flex items-start justify-center p-2">
-          <div className="w-1.5 h-1.5 bg-white rounded-full" />
-        </div>
       </div>
     </div>
   )
