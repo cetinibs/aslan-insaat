@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Type Check
+        run: npx tsc --noEmit
+
+      - name: Build
+        run: npm run build
+        env:
+          # Build sırasında DB bağlantısı gerekirse bu hataya neden olabilir.
+          # Şimdilik dummy bir değer veriyoruz, eğer build fail olursa gerçek bir değer gerekecektir.
+          # Ancak prisma generate şemaya bakar, build ise DB'ye bağlanabilir.
+          # Next.js statik generasyon yapmıyorsa (SSR ise) sorun olmaz.
+          DATABASE_URL: "postgresql://user:password@localhost:5432/dbname"
+          NEXT_TELEMETRY_DISABLED: 1
