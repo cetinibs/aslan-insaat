@@ -32,9 +32,5 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          # Build sırasında DB bağlantısı gerekirse bu hataya neden olabilir.
-          # Şimdilik dummy bir değer veriyoruz, eğer build fail olursa gerçek bir değer gerekecektir.
-          # Ancak prisma generate şemaya bakar, build ise DB'ye bağlanabilir.
-          # Next.js statik generasyon yapmıyorsa (SSR ise) sorun olmaz.
-          DATABASE_URL: "postgresql://user:password@localhost:5432/dbname"
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
           NEXT_TELEMETRY_DISABLED: 1
