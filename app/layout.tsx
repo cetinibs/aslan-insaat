@@ -240,7 +240,7 @@ const structuredData = {
         ],
       },
       sameAs: [
-        "https://www.instagram.com/aslaninsaat",
+        "https://www.instagram.com/aslaninsaat_com",
         "https://www.facebook.com/aslaninsaat",
         "https://www.linkedin.com/company/aslaninsaat",
       ],

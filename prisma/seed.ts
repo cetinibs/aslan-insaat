@@ -150,7 +150,7 @@ async function main() {
         { key: 'address', value: 'Çakmak Mah. Seyrek Sok. Lina Apt. 17/10, Ümraniye, İstanbul', type: 'string', group: 'contact' },
         { key: 'addressEn', value: 'Çakmak Mah. Seyrek Sok. Lina Apt. 17/10, Ümraniye, Istanbul', type: 'string', group: 'contact' },
         { key: 'whatsapp', value: '+905422740594', type: 'string', group: 'contact' },
-        { key: 'instagram', value: 'https://www.instagram.com/aslaninsaat', type: 'string', group: 'social' },
+        { key: 'instagram', value: 'https://www.instagram.com/aslaninsaat_com', type: 'string', group: 'social' },
         { key: 'logo', value: '/images/aslan-insaat-logo - son.jpg', type: 'string', group: 'general' },
         { key: 'copyrightText', value: '© 2025 Aslan İnşaat. Tüm hakları saklıdır.', type: 'string', group: 'general' },
         { key: 'copyrightTextEn', value: '© 2025 Aslan Construction. All rights reserved.', type: 'string', group: 'general' },

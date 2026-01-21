@@ -30,7 +30,7 @@ export function Footer() {
     ? (settings?.siteDescriptionEn || t("footer.description"))
     : (settings?.siteDescription || t("footer.description"))
 
-  const instagram = settings?.instagram || "https://www.instagram.com/aslaninsaat"
+  const instagram = settings?.instagram || "https://www.instagram.com/aslaninsaat_com"
   const copyright = locale === 'en'
     ? (settings?.copyrightTextEn || `© 2025 Aslan Construction. All rights reserved.`)
     : (settings?.copyrightText || `© 2025 Aslan İnşaat. Tüm hakları saklıdır.`)

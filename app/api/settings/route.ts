@@ -25,7 +25,7 @@ const defaultSettings: Record<string, { value: string; type: string; group: stri
     whatsapp: { value: '+905422740594', type: 'string', group: 'contact' },
 
     // Sosyal Medya
-    instagram: { value: 'https://www.instagram.com/aslaninsaat', type: 'string', group: 'social' },
+    instagram: { value: 'https://www.instagram.com/aslaninsaat_com', type: 'string', group: 'social' },
     facebook: { value: '', type: 'string', group: 'social' },
     twitter: { value: '', type: 'string', group: 'social' },
     linkedin: { value: '', type: 'string', group: 'social' },

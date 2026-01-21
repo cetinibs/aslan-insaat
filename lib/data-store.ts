@@ -244,7 +244,7 @@ const defaultSiteSettings: SiteSettings = {
     whatsapp: "+905422740594",
 
     // Sosyal Medya
-    instagram: "https://www.instagram.com/aslaninsaat",
+    instagram: "https://www.instagram.com/aslaninsaat_com",
     facebook: "",
     twitter: "",
     linkedin: "",

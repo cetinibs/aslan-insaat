@@ -33,7 +33,7 @@ export function Header() {
   // Varsayılan değerler (ayarlar yüklenene kadar veya yoksa)
   const logoSrc = settings?.logo || "/images/aslan-insaat-logo - son.jpg"
   const logoAlt = settings?.logoAlt || "Aslan İnşaat Logo"
-  const instagramLink = settings?.instagram || "https://www.instagram.com/aslaninsaat"
+  const instagramLink = settings?.instagram || "https://www.instagram.com/aslaninsaat_com"
 
   return (
     <header
