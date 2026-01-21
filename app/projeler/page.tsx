@@ -231,6 +231,32 @@ export default function ProjectsPage() {
       location: "İzmir",
       progress: 100,
     },
+    {
+      id: 13,
+      title: "ÇAKMAK MAHALLESİ PROJESİ",
+      category: "Konut",
+      status: "ongoing" as const,
+      year: "2025",
+      description: locale === "en"
+        ? "Çakmak Mahallesi Project - Ongoing modern residential project in Ümraniye"
+        : "Çakmak Mahallesi Projesi - Ümraniye'de devam eden modern konut projesi",
+      image: "/projects/cakmak-mahallesi/cakmak-2.jpg",
+      location: "Ümraniye, İstanbul",
+      progress: 60,
+    },
+    {
+      id: 14,
+      title: "ATAŞEHİR PROJESİ",
+      category: "Konut",
+      status: "ongoing" as const,
+      year: "2025",
+      description: locale === "en"
+        ? "Ataşehir Project - Prestigious residential project offering modern architecture and luxury living spaces"
+        : "Ataşehir Projesi - Modern mimari ve lüks yaşam alanları sunan prestijli konut projesi",
+      image: "/projects/atasehir/atasehir-1.jpg",
+      location: "Ataşehir, İstanbul",
+      progress: 40,
+    },
   ]
 
   const filteredProjects = projects.filter((project) => {

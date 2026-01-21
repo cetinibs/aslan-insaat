@@ -67,6 +67,13 @@ export default function HomePage() {
 
   const projects = [
     {
+      title: "ÇAKMAK MAHALLESİ PROJESİ",
+      type: locale === "en" ? "Residential" : "Konut Projesi",
+      year: "2025",
+      status: t("projects.ongoing"),
+      image: "/projects/cakmak-mahallesi/cakmak-2.jpg",
+    },
+    {
       title: "SULTANBEYLİ PROJESİ",
       type: locale === "en" ? "Residential" : "Konut Projesi",
       year: "2024",

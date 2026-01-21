@@ -25,6 +25,8 @@ const projects: Project[] = [
     { id: 6, title: "19 MAYIS PROJESİ", category: "Konut", status: "ongoing", year: "2025", lat: 41.0027, lng: 29.0908 },
     { id: 7, title: "Villa Bodrum", category: "Konut", status: "completed", year: "2023", lat: 37.0344, lng: 27.4305 },
     { id: 8, title: "Office Tower İzmir", category: "Ticari", status: "completed", year: "2024", lat: 38.4189, lng: 27.1287 },
+    { id: 13, title: "ÇAKMAK MAHALLESİ PROJESİ", category: "Konut", status: "ongoing", year: "2025", lat: 41.0282, lng: 29.1290, image: "/projects/cakmak-mahallesi/cakmak-1.jpg" },
+    { id: 14, title: "ATAŞEHİR PROJESİ", category: "Konut", status: "ongoing", year: "2025", lat: 41.0982, lng: 29.1080, image: "/projects/atasehir/atasehir-1.jpg" },
 ]
 
 interface ProjectMapProps {
@@ -164,8 +166,8 @@ export function ProjectMap({ onProjectSelect, selectedProjectId }: ProjectMapPro
                     <div className="pr-6">
                         <span
                             className={`inline-block px-2 py-0.5 rounded-full text-xs font-semibold mb-2 ${selectedProject.status === "completed"
-                                    ? "bg-emerald-100 text-emerald-700"
-                                    : "bg-amber-100 text-amber-700"
+                                ? "bg-emerald-100 text-emerald-700"
+                                : "bg-amber-100 text-amber-700"
                                 }`}
                         >
                             {selectedProject.status === "completed" ? "Tamamlandı" : "Devam Ediyor"}

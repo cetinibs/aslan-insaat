@@ -159,6 +159,47 @@ const defaultProjects: Project[] = [
         featuresEn: ["Smart home systems", "Solar panels"],
         images: ["/modern-apartment-building.png"],
         progress: 35
+    },
+    {
+        id: "13",
+        title: "ÇAKMAK MAHALLESİ PROJESİ",
+        category: "konut",
+        status: "ongoing",
+        year: "2025",
+        location: "Ümraniye, İstanbul",
+        area: "5,200 m²",
+        units: "24 daire",
+        description: "Çakmak Mahallesi Projesi - Ümraniye'de devam eden modern konut projesi",
+        descriptionEn: "Çakmak Mahallesi Project - Ongoing modern residential project in Ümraniye",
+        features: ["Depreme dayanıklı yapı", "Modern mimari", "Merkezi konum", "Sosyal alanlar"],
+        featuresEn: ["Earthquake resistant structure", "Modern architecture", "Central location", "Social areas"],
+        images: [
+            "/projects/cakmak-mahallesi/cakmak-1.jpg",
+            "/projects/cakmak-mahallesi/cakmak-2.jpg",
+            "/projects/cakmak-mahallesi/cakmak-3.jpg",
+            "/projects/cakmak-mahallesi/cakmak-4.jpg",
+            "/projects/cakmak-mahallesi/cakmak-5.jpg"
+        ],
+        progress: 60
+    },
+    {
+        id: "14",
+        title: "ATAŞEHİR PROJESİ",
+        category: "konut",
+        status: "ongoing",
+        year: "2025",
+        location: "Ataşehir, İstanbul",
+        area: "4,800 m²",
+        units: "28 daire",
+        description: "Ataşehir Projesi - Modern mimari ve lüks yaşam alanları sunan prestijli konut projesi",
+        descriptionEn: "Ataşehir Project - Prestigious residential project offering modern architecture and luxury living spaces",
+        features: ["Depreme dayanıklı yapı", "Modern mimari", "Merkezi konum", "Lüks iç tasarım", "Ferforje balkonlar"],
+        featuresEn: ["Earthquake resistant structure", "Modern architecture", "Central location", "Luxury interior design", "Wrought iron balconies"],
+        images: [
+            "/projects/atasehir/atasehir-1.jpg",
+            "/projects/atasehir/atasehir-2.jpg"
+        ],
+        progress: 40
     }
 ]
 
