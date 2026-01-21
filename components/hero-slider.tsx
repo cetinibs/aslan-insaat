@@ -11,11 +11,6 @@ export function HeroSlider() {
 
   const slides = locale === "en" ? [
     {
-      image: "/images/slider-1.png",
-      title: "Modern Projects, Perfect Solutions",
-      subtitle: "Detailed Project Presentations with Exterior and Floor Plans",
-    },
-    {
       image: "/images/slider-2.png",
       title: "Buildings Rising with Trust",
       subtitle: "25+ Years of Experience",
@@ -26,11 +21,6 @@ export function HeroSlider() {
       subtitle: "Modern Architectural Solutions",
     },
   ] : [
-    {
-      image: "/images/slider-1.png",
-      title: "Modern Projeler, Mükemmel Çözümler",
-      subtitle: "Dış Cephe ve Kat Planı ile Detaylı Proje Sunumları",
-    },
     {
       image: "/images/slider-2.png",
       title: "Güvenle Yükselen Yapılar",
