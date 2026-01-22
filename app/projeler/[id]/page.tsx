@@ -127,40 +127,7 @@ const projectDetails: Record<string, {
       { id: "5", title: "Teslim", description: "Anahtar teslim", status: "pending", date: "Aralık 2025" },
     ],
   },
-  "13": {
-    title: "ÇAKMAK MAHALLESİ PROJESİ",
-    category: "Konut",
-    status: "ongoing",
-    year: "2025",
-    location: "Ümraniye, İstanbul",
-    area: "5,200 m²",
-    units: "24 daire",
-    description:
-      "Çakmak Mahallesi Projesi - Ümraniye'nin en prestijli lokasyonlarından birinde yükselen modern konut projemiz. Depreme dayanıklı betonarme yapısı, estetik dış cephe tasarımı ve konforlu yaşam alanları ile aileler için ideal bir yaşam sunmaktadır.",
-    features: [
-      "Depreme dayanıklı betonarme yapı",
-      "Modern mimari tasarım",
-      "Merkezi konum avantajı",
-      "Geniş sosyal alanlar",
-      "Kapalı otopark",
-      "7/24 güvenlik sistemi",
-    ],
-    images: [
-      "/projects/cakmak-mahallesi/cakmak-1.jpg",
-      "/projects/cakmak-mahallesi/cakmak-2.jpg",
-      "/projects/cakmak-mahallesi/cakmak-3.jpg",
-      "/projects/cakmak-mahallesi/cakmak-4.jpg",
-      "/projects/cakmak-mahallesi/cakmak-5.jpg",
-    ],
-    progress: 60,
-    milestones: [
-      { id: "1", title: "Proje Başlangıcı", description: "Sözleşme ve planlama", status: "completed", date: "Eylül 2024" },
-      { id: "2", title: "Temel Atma", description: "Zemin etüdü ve temel çalışmaları", status: "completed", date: "Kasım 2024" },
-      { id: "3", title: "Kaba İnşaat", description: "Betonarme işleri ve dış cephe", status: "in-progress", date: "Haziran 2025" },
-      { id: "4", title: "İnce İşler", description: "Sıva, boya, tesisat", status: "pending", date: "Aralık 2025" },
-      { id: "5", title: "Teslim", description: "Anahtar teslim", status: "pending", date: "Mart 2026" },
-    ],
-  },
+
   "14": {
     title: "ATAŞEHİR PROJESİ",
     category: "Konut",

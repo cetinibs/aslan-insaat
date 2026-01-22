@@ -67,11 +67,11 @@ export default function HomePage() {
 
   const projects = [
     {
-      title: "ÇAKMAK MAHALLESİ PROJESİ",
+      title: "MUSTAFA KEMAL PROJESİ",
       type: locale === "en" ? "Residential" : "Konut Projesi",
-      year: "2025",
-      status: t("projects.ongoing"),
-      image: "/projects/cakmak-mahallesi/cakmak-2.jpg",
+      year: "2018",
+      status: t("projects.completed"),
+      image: "/mustafa-kemal.jpeg",
     },
     {
       title: "SULTANBEYLİ PROJESİ",

@@ -231,19 +231,7 @@ export default function ProjectsPage() {
       location: "İzmir",
       progress: 100,
     },
-    {
-      id: 13,
-      title: "ÇAKMAK MAHALLESİ PROJESİ",
-      category: "Konut",
-      status: "ongoing" as const,
-      year: "2025",
-      description: locale === "en"
-        ? "Çakmak Mahallesi Project - Ongoing modern residential project in Ümraniye"
-        : "Çakmak Mahallesi Projesi - Ümraniye'de devam eden modern konut projesi",
-      image: "/projects/cakmak-mahallesi/cakmak-2.jpg",
-      location: "Ümraniye, İstanbul",
-      progress: 60,
-    },
+
     {
       id: 14,
       title: "ATAŞEHİR PROJESİ",

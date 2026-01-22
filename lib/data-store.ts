@@ -160,28 +160,7 @@ const defaultProjects: Project[] = [
         images: ["/modern-apartment-building.png"],
         progress: 35
     },
-    {
-        id: "13",
-        title: "ÇAKMAK MAHALLESİ PROJESİ",
-        category: "konut",
-        status: "ongoing",
-        year: "2025",
-        location: "Ümraniye, İstanbul",
-        area: "5,200 m²",
-        units: "24 daire",
-        description: "Çakmak Mahallesi Projesi - Ümraniye'de devam eden modern konut projesi",
-        descriptionEn: "Çakmak Mahallesi Project - Ongoing modern residential project in Ümraniye",
-        features: ["Depreme dayanıklı yapı", "Modern mimari", "Merkezi konum", "Sosyal alanlar"],
-        featuresEn: ["Earthquake resistant structure", "Modern architecture", "Central location", "Social areas"],
-        images: [
-            "/projects/cakmak-mahallesi/cakmak-1.jpg",
-            "/projects/cakmak-mahallesi/cakmak-2.jpg",
-            "/projects/cakmak-mahallesi/cakmak-3.jpg",
-            "/projects/cakmak-mahallesi/cakmak-4.jpg",
-            "/projects/cakmak-mahallesi/cakmak-5.jpg"
-        ],
-        progress: 60
-    },
+
     {
         id: "14",
         title: "ATAŞEHİR PROJESİ",
